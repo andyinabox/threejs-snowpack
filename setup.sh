@@ -10,12 +10,19 @@ if [ "$DIRNAME" = "$TPL_DIRNAME" ]; then
   exit 0
 fi
 
-# rm -rf .git
-# rm -rf node_modules
-# rm -rf build
-# rm package-lock.json
+echo "--> cleaning up and removing git repository"
+rm -rf .git
+rm -rf node_modules
+rm -rf build
+rm package-lock.json
 
-# npm init
-# npm install
+echo "--> running npm init. don't forget to rename your project!"
+npm init
 
-# rm ./setup.sh
+echo "--> installing dependencies"
+npm install
+
+echo "--> self-destructing"
+rm ./setup.sh
+
+echo "--> done!"
