@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import GUI from 'lil-gui';
 
 export const Sketch = function(options) {
   const container = options.dom;
@@ -12,8 +13,13 @@ export const Sketch = function(options) {
   let camera = null;
   let renderer = null;
   let mesh = null;
+  let material = null;
   let controls = null;
   const clock = new THREE.Clock()
+  const gui = new GUI()
+  const params = {
+    color: 0xffffff,
+  }
 
   const init = () => {
     scene = new THREE.Scene();
@@ -33,10 +39,22 @@ export const Sketch = function(options) {
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
 
+    initGui()
     bindEvents();
     addObjects();
     render();
   };
+
+  const initGui = () => {
+    gui.addColor(params, 'color')
+
+    // https://lil-gui.georgealways.com/#GUI#onChange
+    gui.onChange(e => {
+      if (e.property == 'color') {
+        material.setValues({ color: e.value });
+      }
+    })
+  }
 
   const bindEvents = () => {
     window.addEventListener('resize', () => {
@@ -57,7 +75,7 @@ export const Sketch = function(options) {
   const addObjects = () => {
     const geometry = new THREE.BoxGeometry(1, 1, 1);
 
-    const material = new THREE.MeshBasicMaterial({ color: 0x4fffa1 });
+    material = new THREE.MeshBasicMaterial({ color: params.color });
 
     mesh = new THREE.Mesh(geometry, material);
 
