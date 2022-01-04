@@ -17,6 +17,7 @@ export const Sketch = function(options) {
   let controls = null;
   const clock = new THREE.Clock()
   const gui = new GUI()
+
   const params = {
     color: 0xffffff,
   }
@@ -46,14 +47,7 @@ export const Sketch = function(options) {
   };
 
   const initGui = () => {
-    gui.addColor(params, 'color')
-
-    // https://lil-gui.georgealways.com/#GUI#onChange
-    gui.onChange(e => {
-      if (e.property == 'color') {
-        material.setValues({ color: e.value });
-      }
-    })
+    gui.addColor(params, 'color').onChange(v => material.setValues({ color: v }))
   }
 
   const bindEvents = () => {
