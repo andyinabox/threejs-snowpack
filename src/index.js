@@ -1,4 +1,4 @@
-import { Sketch } from './src/sketch.js'
+import { Sketch } from './sketch.js'
 
 Sketch({
   dom: document.getElementById('canvas-container')
