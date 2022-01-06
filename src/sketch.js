@@ -9,35 +9,42 @@ export const Sketch = function(options) {
     height: window.innerHeight
   };
   
-  let scene = null;
-  let camera = null;
-  let renderer = null;
-  let mesh = null;
-  let material = null;
-  let controls = null;
+  let scene;
+  let camera;
+  let renderer;
+  let mesh;
+  let material;
+  let controls;
+
   const clock = new THREE.Clock()
   const gui = new GUI()
   const params = {
-    color: 0xffffff,
+    backgroundColor: 0xffffff,
+    color: 0xff00ff,
   }
 
   const init = () => {
     scene = new THREE.Scene();
+
     camera = new THREE.PerspectiveCamera(75, size.width / size.height, 1, 1000);
     camera.position.x = 2;
     camera.position.y = 1;
     camera.position.z = 4;
+    
     scene.add(camera);
 
     renderer = new THREE.WebGLRenderer({ 
       antialias: true
     });
+
     renderer.setSize(size.width, size.height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(params.backgroundColor)
     container.appendChild(renderer.domElement);
 
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
+    controls.autoRotate = true;
 
     initGui()
     bindEvents();
@@ -46,14 +53,8 @@ export const Sketch = function(options) {
   };
 
   const initGui = () => {
-    gui.addColor(params, 'color')
-
-    // https://lil-gui.georgealways.com/#GUI#onChange
-    gui.onChange(e => {
-      if (e.property == 'color') {
-        material.setValues({ color: e.value });
-      }
-    })
+    gui.addColor(params, 'backgroundColor').onChange(v => renderer.setClearColor(v));
+    gui.addColor(params, 'color').onChange(v => material.setValues({ color: v }));
   }
 
   const bindEvents = () => {
@@ -83,11 +84,7 @@ export const Sketch = function(options) {
   };
 
   const render = () => {
-    const elapsedTime = clock.getElapsedTime();
-
-    mesh.rotation.x += 0.01;
-    mesh.rotation.y += 0.01;
-    mesh.rotation.z += 0.01;
+    // const elapsedTime = clock.getElapsedTime();
     
     camera.updateProjectionMatrix();
 
