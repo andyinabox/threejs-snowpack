@@ -16,7 +16,6 @@ export const Sketch = function(options) {
   let material;
   let controls;
 
-  const clock = new THREE.Clock()
   const gui = new GUI()
   const params = {
     backgroundColor: 0xffffff,
@@ -84,8 +83,9 @@ export const Sketch = function(options) {
   };
 
   const render = () => {
-    // const elapsedTime = clock.getElapsedTime();
     
+    controls.update();
+
     camera.updateProjectionMatrix();
 
     renderer.render(scene, camera);
