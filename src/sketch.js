@@ -17,6 +17,7 @@ export const Sketch = function(options) {
   let controls;
 
   const gui = new GUI()
+
   const params = {
     backgroundColor: 0xffffff,
     color: 0xff00ff,
@@ -54,6 +55,7 @@ export const Sketch = function(options) {
   const initGui = () => {
     gui.addColor(params, 'backgroundColor').onChange(v => renderer.setClearColor(v));
     gui.addColor(params, 'color').onChange(v => material.setValues({ color: v }));
+
   }
 
   const bindEvents = () => {
