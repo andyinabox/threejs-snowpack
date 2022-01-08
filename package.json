@@ -17,6 +17,7 @@
     "snowpack-plugin-glslify": "^1.0.0"
   },
   "dependencies": {
+    "glsl-noise": "0.0.0",
     "lil-gui": "^0.16.0",
     "three": "^0.136.0",
     "three-orbit-viewer": "^69.3.1"

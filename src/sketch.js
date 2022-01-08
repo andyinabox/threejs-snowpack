@@ -5,8 +5,6 @@ import GUI from 'lil-gui';
 import vert from './vert.glsl'
 import frag from './frag.glsl'
 
-console.log(frag, vert)
-
 export const Sketch = function(options) {
   const container = options.dom;
   const size = {
@@ -21,11 +19,13 @@ export const Sketch = function(options) {
   let material;
   let controls;
 
+  const clock = new THREE.Clock()
   const gui = new GUI()
 
   const params = {
     backgroundColor: 0xffffff,
-    color: 0xff00ff,
+    color: [1.0, 0.0, 1.0],
+    tweak: 0.5,
   }
 
   const init = () => {
@@ -59,7 +59,8 @@ export const Sketch = function(options) {
 
   const initGui = () => {
     gui.addColor(params, 'backgroundColor').onChange(v => renderer.setClearColor(v));
-    gui.addColor(params, 'color').onChange(v => material.setValues({ color: v }));
+    gui.addColor(params, 'color');
+    gui.add(params, 'tweak', 0, 1).onChange(v => material.uniforms.tweak.value = v);
 
   }
 
@@ -80,10 +81,14 @@ export const Sketch = function(options) {
   };
 
   const addObjects = () => {
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const geometry = new THREE.BoxGeometry(1, 1, 1, 16, 16);
 
     material = new THREE.ShaderMaterial( {
-      uniforms: {},
+      uniforms: {
+        color: { value: params.color },
+        time: { value: 0.0 },
+        tweak: { value: params.tweak }
+      },
       vertexShader: vert,
       fragmentShader: frag,
     });
@@ -95,6 +100,8 @@ export const Sketch = function(options) {
 
   const render = () => {
     
+    material.uniforms.time.value = clock.getElapsedTime()
+
     controls.update();
 
     camera.updateProjectionMatrix();
