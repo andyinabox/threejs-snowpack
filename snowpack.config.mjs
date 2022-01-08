@@ -3,5 +3,8 @@
 
 /** @type {import("snowpack").SnowpackUserConfig } */
 export default {
-  root: "src"
+  root: "src",
+  plugins: [
+    'snowpack-plugin-glslify'
+  ]
 };

@@ -2,6 +2,11 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import GUI from 'lil-gui';
 
+import vert from './vert.glsl'
+import frag from './frag.glsl'
+
+console.log(frag, vert)
+
 export const Sketch = function(options) {
   const container = options.dom;
   const size = {
@@ -77,7 +82,11 @@ export const Sketch = function(options) {
   const addObjects = () => {
     const geometry = new THREE.BoxGeometry(1, 1, 1);
 
-    material = new THREE.MeshBasicMaterial({ color: params.color });
+    material = new THREE.ShaderMaterial( {
+      uniforms: {},
+      vertexShader: vert,
+      fragmentShader: frag,
+    });
 
     mesh = new THREE.Mesh(geometry, material);
 

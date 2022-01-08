@@ -12,10 +12,13 @@
   "license": "ISC",
   "devDependencies": {
     "eslint": "^8.6.0",
-    "snowpack": "^3.8.8"
+    "glslang-validator-prebuilt": "0.0.6",
+    "snowpack": "^3.8.8",
+    "snowpack-plugin-glslify": "^1.0.0"
   },
   "dependencies": {
     "lil-gui": "^0.16.0",
-    "three": "^0.136.0"
+    "three": "^0.136.0",
+    "three-orbit-viewer": "^69.3.1"
   }
 }
