@@ -51,9 +51,9 @@ export const Sketch = function(options) {
     controls.enableDamping = true;
     controls.autoRotate = true;
 
-    initGui()
     bindEvents();
     addObjects();
+    initGui()
     render();
   };
 
