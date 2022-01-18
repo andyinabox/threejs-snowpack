@@ -1,6 +1,6 @@
 {
   "name": "threejs-snowpack",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "type": "module",
   "description": "A simple starter project.",
   "main": "index.js",
