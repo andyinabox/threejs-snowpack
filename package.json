@@ -1,6 +1,7 @@
 {
   "name": "threejs-snowpack",
   "version": "1.0.0",
+  "type": "module",
   "description": "A simple starter project.",
   "main": "index.js",
   "scripts": {
@@ -18,6 +19,7 @@
   "dependencies": {
     "glsl-noise": "0.0.0",
     "lil-gui": "^0.16.0",
+    "seeded-noise": "^0.0.3",
     "three": "^0.136.0"
   }
 }
